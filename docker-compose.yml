@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: flapp-backend
+    restart: always
+    env_file:
+      - ./.env
+    networks:
+      - flapp-network
+    ports:
+      - "5000:5000"
+    environment:
+      - DUMMY_API=${DUMMY_API:-https://dummyjson.com}
+      - UDER_CREDENTIAL=${UDER_CREDENTIAL}
+      - TRAELOYA_CREDENTIAL=${TRAELOYA_CREDENTIAL}
+      - UDER_URL=${UDER_URL}
+      - TRAELOYA_URL=${TRAELOYA_URL}
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: flapp-frontend
+    restart: always
+    networks:
+      - flapp-network
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+networks:
+  flapp-network:
+    driver: bridge

@@ -1,0 +1,114 @@
+<!-- filepath: frontend/checkout.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flapp - Checkout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-4">Flapp - Checkout</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Resumen del Pedido</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="checkoutItems">
+                                <!-- Los items del carrito se insertarán aquí -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Información de Envío</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="shippingForm">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nombre completo</label>
+                                <input type="text" class="form-control" id="name" value="Usuario de Prueba" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" id="phone" value="56912345678" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="address" value="Av. Providencia 1234" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="commune" class="form-label">Comuna</label>
+                                <input type="text" class="form-control" id="commune" value="Providencia" required>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Resumen de Compra</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal:</span>
+                            <span id="orderSubtotal">$0.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Envío:</span>
+                            <span id="shippingCost">Calculando...</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-3">
+                            <strong>Total:</strong>
+                            <strong id="orderTotal">$0.00</strong>
+                        </div>
+                        
+                        <div id="shippingOptions" class="mb-3">
+                            <!-- Opciones de envío se insertarán aquí -->
+                        </div>
+
+                        <button id="getQuotesBtn" class="btn btn-primary w-100 mb-2">Cotizar envío</button>
+                        <button id="placeOrderBtn" class="btn btn-success w-100" disabled>Realizar pedido</button>
+                        
+                        <div id="quoteLoading" class="text-center mt-3 d-none">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden">Cargando...</span>
+                            </div>
+                            <span class="ms-2">Obteniendo cotizaciones...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="index.html" class="btn btn-outline-secondary">Volver al carrito</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>
