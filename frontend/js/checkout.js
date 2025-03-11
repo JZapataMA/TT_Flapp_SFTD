@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let subtotal = 0;
 
     //const API_BASE_URL = 'http://localhost:5000'; // Para localhost
-    const API_BASE_URL = ''; // Para Docker
+    const API_BASE_URL = ''; // Para el Docker
 
     // Verificar si hay un carrito almacenado
     const savedCart = localStorage.getItem('flappCart');
@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
         cart = JSON.parse(savedCart);
         displayCheckoutItems();
         
-        // Prellenar formulario con datos del cliente
         if (cart.customer_data) {
             nameInput.value = cart.customer_data.name;
             phoneInput.value = cart.customer_data.phone;
@@ -81,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para obtener cotizaciones de envío
     async function getShippingQuotes() {
         try {
-            // Actualizar datos del cliente en el carrito
             cart.customer_data = {
                 name: nameInput.value,
                 phone: phoneInput.value,
@@ -90,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 shipping_street: addressInput.value
             };
             
-            // Guardar carrito actualizado
             localStorage.setItem('flappCart', JSON.stringify(cart));
             
             quoteLoading.classList.remove('d-none');
@@ -162,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         
-        // Almacenar
         selectedShipping = quote;
         placeOrderBtn.disabled = false;
         
@@ -178,7 +174,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'index.html';
     }
     
-    // Event listeners
     getQuotesBtn.addEventListener('click', getShippingQuotes);
     placeOrderBtn.addEventListener('click', placeOrder);
 });

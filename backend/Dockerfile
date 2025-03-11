@@ -2,18 +2,18 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-# Instalar dependencias
+# Dependencias
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar el código fuente
+# Codigo fuente
 COPY . .
 
-# Variable para definir el puerto
+# Puerto
 ENV PORT=5000
 
 # Exponer el puerto
 EXPOSE $PORT
 
-# Comando para iniciar la aplicación
+# Inicio
 CMD ["python", "app.py"]

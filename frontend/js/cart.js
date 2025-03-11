@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             
             // Seleccionar 2-5 productos aleatorios
-            const numProducts = Math.floor(Math.random() * 4) + 2; // Entre 2 y 5 productos
+            const numProducts = Math.floor(Math.random() * 4) + 2;
             const selectedProducts = [];
             const usedIndexes = new Set();
             
@@ -47,9 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 selectedProducts.push({
                     productId: product.id,
-                    quantity: Math.floor(Math.random() * 3) + 1, // Entre 1 y 3 unidades
+                    quantity: Math.floor(Math.random() * 3) + 1,
                     price: product.price,
-                    discount: Math.floor(Math.random() * 10), // Descuento aleatorio entre 0% y 10%
+                    discount: Math.floor(Math.random() * 10),
                     title: product.title,
                     thumbnail: product.thumbnail
                 });
@@ -57,8 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Actualizar el estado del carrito
             cart.products = selectedProducts;
-            
-            // Almacenar en localStorage
             localStorage.setItem('flappCart', JSON.stringify(cart));
             
             // Mostrar el carrito
@@ -80,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Función para mostrar el carrito
     function displayCart() {
-        // Limpiar contenido actual
         cartItems.innerHTML = '';
         
         let total = 0;

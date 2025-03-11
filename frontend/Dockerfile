@@ -10,8 +10,8 @@ COPY . /usr/share/nginx/html
 # Copiar la configuración de nginx
 COPY nginx.conf /etc/nginx/conf.d/
 
-# Exponer el puerto 80
+# Exponer el puerto 80 (despues se mappea al puerto 3000)
 EXPOSE 80
 
-# Comando para iniciar nginx en primer plano
+# Inicio
 CMD ["nginx", "-g", "daemon off;"]

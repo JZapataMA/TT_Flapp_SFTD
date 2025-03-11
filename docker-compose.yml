@@ -28,7 +28,7 @@ services:
     networks:
       - flapp-network
     ports:
-      - "3000:80"  # Mapea el puerto 3000 del host al puerto 80 del contenedor
+      - "3000:80"
     depends_on:
       - backend
 

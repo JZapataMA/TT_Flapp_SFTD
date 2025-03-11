@@ -19,7 +19,9 @@ app = Flask(__name__)
 CORS(app)
 
 async def fetch_all_products():
-    """Retorna todos los productos desde dummyjson usando paginación async"""
+    """Retorna todos los productos desde dummyjson
+      usando paginación async"""
+    
     all_prodcuts = []
     page = 1
     limit = 10
@@ -39,7 +41,10 @@ async def fetch_all_products():
     return all_prodcuts
 
 def process_cart_details(products, all_products):
-    """Procesa y valida los productos del carrito comparando con los productos de dummyjson"""	
+
+    """Procesa y valida los productos del carrito 
+    comparando con los productos de dummyjson"""	
+
     cart_details = []
     for item in products:
         prod_id = int(item.get('productId'))
@@ -77,7 +82,9 @@ def process_cart_details(products, all_products):
     return cart_details
 
 def build_shipping_payload(customer_data, cart_details):
+
     """Construye el payload para la tarificación"""
+
     origin_data = {
         "name": "Tienda Flapp",
         "phone": "56912345678",
@@ -91,7 +98,9 @@ def build_shipping_payload(customer_data, cart_details):
     }
 
 async def get_quotes(shipping_payload):
+
     """Obtiene las cotizaciones de envío de TraeloYa y Uder"""
+
     customer_data = shipping_payload.get('customer_data', {})
     cart_details = shipping_payload.get('cart', [])
     origin = shipping_payload.get('origin', {})
@@ -184,13 +193,13 @@ async def process_cart():
         data = request.get_json()
         products = data.get('products', [])
         customer_data = data.get('customer_data', {})
-
-        # Recuperar productos de dummyjson de forma asíncrona
         all_products = await fetch_all_products()
+
         # Procesar y validar los productos del carrito
         cart_details = process_cart_details(products, all_products)
         display_keys = ["id", "name", "unit_price", "discount",
                         "quantity", "stock", "rating", "stock_real"]
+        
         # desplegamos el carrito recibido solo con las llaves de display_keys
         cart_details_display = [{k: v for k, v in item.items() if k in display_keys} for item in cart_details]
         print("Carrito recibido:")
@@ -199,8 +208,8 @@ async def process_cart():
         
         # Construir payload para tarificación
         shipping_payload = build_shipping_payload(customer_data, cart_details)
-        # Obtener cotizaciones de forma asíncrona
         quotes = await get_quotes(shipping_payload)
+        
         print("Cotizaciones:")
         print(quotes, flush=True)
         
