@@ -115,11 +115,12 @@ async def get_quotes(shipping_payload):
             }
         ]
     }
+
     for product in cart_details:
         traeloya_payload["items"].append({
             "quantity": product.get("quantity", 0),
             "value": product.get("unit_price", 0),
-            "volume": product.get("volume", 1)
+            "volume": product.get("volume", 0)
         })
 
     uder_payload = {
@@ -149,13 +150,15 @@ async def get_quotes(shipping_payload):
             session.post(UDER_URL, json=uder_payload, headers=uder_headers)
         ]
         responses = await asyncio.gather(*tasks, return_exceptions=True)
-        
+    ##########################################
+    
         quotes = []
         # Procesamiento de respuestas
 
         # TraeloYa
         if not isinstance(responses[0], Exception) and responses[0].status == 200:
             traeloya_data = await responses[0].json()
+            print("Respuesta de TraeloYa",traeloya_data, flush=True)
             delivery_offers = traeloya_data.get("deliveryOffers", {})
             pricing = delivery_offers.get("pricing", {})
             price = pricing.get("total")
@@ -169,6 +172,7 @@ async def get_quotes(shipping_payload):
         # Uder
         if not isinstance(responses[1], Exception) and responses[1].status == 200:
             resp_json = await responses[1].json()
+            print("Respuesta de Uder", resp_json, flush=True)
             fee = resp_json.get("fee")
             if fee is not None:
                 quotes.append({"courier": "Uder", "price": fee})
@@ -191,14 +195,14 @@ async def process_cart():
         cart_details_display = [{k: v for k, v in item.items() if k in display_keys} for item in cart_details]
         print("Carrito recibido:")
         for detail in cart_details_display:
-            print(detail)
+            print(detail, flush=True)
         
         # Construir payload para tarificación
         shipping_payload = build_shipping_payload(customer_data, cart_details)
         # Obtener cotizaciones de forma asíncrona
         quotes = await get_quotes(shipping_payload)
         print("Cotizaciones:")
-        print(quotes)
+        print(quotes, flush=True)
         
         if not quotes:
             return jsonify({"error": "No hay envíos disponibles"}), 400

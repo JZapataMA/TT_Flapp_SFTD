@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             No hay envíos disponibles :(
                         </div>
                     `;
-                    return; // Salimos de la función sin lanzar error
+                    return; 
                 }
                 
                 throw new Error(errorData.error || `Error en la respuesta: ${response.status}`);

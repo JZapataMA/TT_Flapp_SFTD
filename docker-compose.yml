@@ -13,6 +13,7 @@ services:
     ports:
       - "5000:5000"
     environment:
+      - PYTHONUNBUFFERED=1
       - DUMMY_API=${DUMMY_API:-https://dummyjson.com}
       - UDER_CREDENTIAL=${UDER_CREDENTIAL}
       - TRAELOYA_CREDENTIAL=${TRAELOYA_CREDENTIAL}
@@ -27,7 +28,7 @@ services:
     networks:
       - flapp-network
     ports:
-      - "80:80"
+      - "3000:80"  # Mapea el puerto 3000 del host al puerto 80 del contenedor
     depends_on:
       - backend
 
